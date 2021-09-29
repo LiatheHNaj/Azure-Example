@@ -2,6 +2,14 @@
 # Create and test a Python package on multiple Python versions.
 # Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- main
+
+pool:# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
 ​
 trigger:
 - main
@@ -10,12 +18,12 @@ pool:
   vmImage: ubuntu-latest
 strategy:
   matrix:
-#    Python27:
-#      python.version: '2.7'
-#    Python35:
-#      python.version: '3.5'
-#    Python36:
-#      python.version: '3.6'
+    Python27:
+      python.version: '2.7'
+    Python35:
+      python.version: '3.5'
+    Python36:
+      python.version: '3.6'
     Python37:
       python.version: '3.7'
 ​
@@ -35,6 +43,34 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 ​
+- script: |
+    pip install pytest pytest-azurepipelines
+    pytest
+  displayName: 'pytest'
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+    Python27:
+      python.version: '2.7'
+    Python35:
+      python.version: '3.5'
+    Python36:
+      python.version: '3.6'
+    Python37:
+      python.version: '3.7'
+
+steps:
+- task: CBTMain@0
+  inputs:
+    connectedServiceName: 'CBT'
+    cbtTunnel: true
+    
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
 - script: |
     pip install pytest pytest-azurepipelines
     pytest
