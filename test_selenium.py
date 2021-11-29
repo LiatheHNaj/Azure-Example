@@ -10,7 +10,7 @@ authkey = os.getenv("CBT_AUTHKEY")
 caps = {
  'platform': 'Windows',
  'browserName': 'Chrome',
- 'record_video': 'true'
+ 'record_video': 'true',
 }
 
 driver = webdriver.Remote(
