@@ -18,11 +18,12 @@ driver = webdriver.Remote(
 
 
 
-driver.get("http://www.google.com")
-if not "Google" in driver.title:
-    raise Exception("Unable to load google page!")
-elem = driver.find_element_by_name("q")
-elem.send_keys("CrossBrowserTesting")
-elem.submit()
+driver.get("https://wrong.host.badssl.com/")
+# if not "Google" in driver.title:
+#     raise Exception("Unable to load google page!")
+# elem = driver.find_element_by_name("q")
+# elem.send_keys("CrossBrowserTesting")
+# elem.submit()
 print(driver.title)
+
 driver.quit()
